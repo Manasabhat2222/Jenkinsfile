@@ -1,18 +1,19 @@
 pipeline {
 agent label
 stages {
+stage ('clone_C_files') {
 agent {
   label 'master'
 }
-stage ('clone_C_files') {
 steps { 
 git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'
 }
 }
+
+stage ('Build_C') {
 agent {
   label 'master'
 }
-stage ('Build_C') {
 steps {
 sh '''
 cd /var/lib/jenkins/workspace/pipeline2
@@ -23,18 +24,20 @@ sudo mv * /var/lib/jenkins/workspace/pipeline2/C_files
 '''
 }
 }
+
+stage ('clone_Java_files') {
 agent {
   label 'practise'
 }
-stage ('clone_Java_files') {
 steps { 
 git branch: 'master', url: 'https://github.com/Manasabhat2222/Java.git'
 }
 }
+
+stage ('Build_java') {
 agent {
   label 'practise'
 }
-stage ('Build_java') {
 steps {
 sh '''
 cd /home/jenkins/jenkins-workspace/workspace/pipeline2
