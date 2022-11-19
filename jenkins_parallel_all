@@ -1,13 +1,13 @@
 pipeline {
-    agent any
+    agent any {
      parallel {
       stages {
-        stage ('clone_C_files') {
+        stage('clone_C_files') {
           steps { 
             git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'
         }
       }
-        stage ('Build_projectC') {
+        stage('Build_projectC') {
           steps {
             sh '''
             cd /var/lib/jenkins/workspace/pipeline3
@@ -17,5 +17,6 @@ pipeline {
           }
         }
       }
-    }
+     }
+   }
 }
