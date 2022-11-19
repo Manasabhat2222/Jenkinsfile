@@ -1,0 +1,21 @@
+pipeline {
+agent any 
+stages {
+stage ('Clone') {
+steps {
+
+}
+}
+stage ('Build') {
+steps {
+sh '''
+cd /home/ubuntu/jenkins_workspace
+make
+'''
+}
+}
+}
+}
+
+
+
