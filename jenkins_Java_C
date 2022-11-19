@@ -18,7 +18,8 @@ sh '''
 cd /var/lib/jenkins/workspace/pipeline2
 make
 rm -rf *.o
-mv * /var/lib/jenkins/workspace/pipeline2/C_files
+mkdir C_files
+sudo mv * /var/lib/jenkins/workspace/pipeline2/C_files
 '''
 }
 }
@@ -36,7 +37,7 @@ agent {
 stage ('Build_java') {
 steps {
 sh '''
-cd /home/jenkins/workspace/pipeline2
+cd /home/jenkins/jenkins-workspace/workspace/pipeline2
 mvn clean install
 '''
 }
