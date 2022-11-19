@@ -1,8 +1,9 @@
 pipeline {
     agent any
-     parallel {
       stages {
-        stage('clone_C_files') {
+stage('parallel') {
+parallel {
+stage('clone_C_files') {
           steps { 
             git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'
         }
