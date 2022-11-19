@@ -1,0 +1,45 @@
+pipeline {
+agent none
+stages {
+agent {
+  label 'master'
+}
+stage ('clone_C_file') {
+steps { 
+git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'
+}
+}
+agent {
+  label 'master'
+}
+stage ('Build_C') {
+steps {
+sh '''
+cd /var/lib/jenkins/workspace/pipeline2
+make
+rm -rf *.o
+mv * /var/lib/jenkins/workspace/pipeline2/C_files
+'''
+}
+}
+agent {
+  label 'practise'
+}
+stage ('clone_Java_file') {
+steps { 
+git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'
+}
+}
+agent {
+  label 'practise'
+}
+stage ('Build_java') {
+steps {
+sh '''
+cd /var/lib/jenkins/workspace/pipeline2/Java_files
+mvn clean install
+'''
+}
+}
+}
+}
