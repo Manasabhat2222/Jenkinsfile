@@ -11,6 +11,7 @@ steps {
 sh '''
 cd /var/lib/jenkins/workspace/pipeline2
 make
+rm -rf *.o
 '''
 }
 }
