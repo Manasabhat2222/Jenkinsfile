@@ -9,7 +9,7 @@ git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'
 stage ('Build') {
 steps {
 sh '''
-cd /home/ubuntu/jenkins_workspace
+cd /var/lib/jenkins/workspace/pipeline2
 make
 '''
 }
