@@ -13,9 +13,7 @@ pipeline {
                 git credentialsId: 'project_java', url: 'https://github.com/Manasabhat2222/Java.git'
             }
         }
-        stage('parallel') {
-        parallel {
-        stage('Build maven') {
+            stage('Build maven') {
             agent { label 'practise' }
             steps {
                 sh '''
@@ -36,8 +34,8 @@ pipeline {
             mv /var/lib/jenkins/workspace/frustrated_pipe/*.c makefile /var/lib/jenkins/workspace/frustrated_pipe/irritated
             '''
             }
-        }
-        }
+        
+        
         }
         stage('deploy_Java') {
             agent { label 'practise' }
