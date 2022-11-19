@@ -1,5 +1,5 @@
 pipeline {
-    agent any {
+    agent any
      parallel {
       stages {
         stage('clone_C_files') {
@@ -19,4 +19,3 @@ pipeline {
       }
      }
    }
-}
