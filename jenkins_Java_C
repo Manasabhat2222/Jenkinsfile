@@ -27,7 +27,7 @@ agent {
 }
 stage ('clone_Java_file') {
 steps { 
-git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'
+git branch: 'master', url: 'https://github.com/Manasabhat2222/Java.git'
 }
 }
 agent {
@@ -36,7 +36,7 @@ agent {
 stage ('Build_java') {
 steps {
 sh '''
-cd /var/lib/jenkins/workspace/pipeline2/Java_files
+cd /home/jenkins/workspace/pipeline2
 mvn clean install
 '''
 }
