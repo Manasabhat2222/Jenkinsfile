@@ -10,7 +10,7 @@ git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'
 }
 }
 
-stage ('Build_C') {
+stage ('Build_projectC') {
 agent {
   label 'master'
 }
@@ -34,7 +34,7 @@ git branch: 'master', url: 'https://github.com/Manasabhat2222/Java.git'
 }
 }
 
-stage ('Build_java') {
+stage ('Build_projectJava') {
 agent {
   label 'practise'
 }
