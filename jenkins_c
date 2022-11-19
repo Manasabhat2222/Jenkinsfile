@@ -1,0 +1,22 @@
+pipeline {
+    agent { label 'master' } 
+    stages {
+        stage('clone') {
+            steps {
+             git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'   
+            }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+            cd /var/lib/jenkins/workspace/frustrated_pipe
+            make
+            rm -rf *.o
+            mkdir irritated
+            mv /var/lib/jenkins/workspace/frustrated_pipe/ABC.exe /var/lib/jenkins/workspace/frustrated_pipe/irritated
+            mv /var/lib/jenkins/workspace/frustrated_pipe/*.c makefile /var/lib/jenkins/workspace/frustrated_pipe/irritated
+            '''
+            }
+        }
+    }
+}
