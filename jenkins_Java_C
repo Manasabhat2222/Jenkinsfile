@@ -4,7 +4,7 @@ stages {
 agent {
   label 'master'
 }
-stage ('clone_C_file') {
+stage ('clone_C_files') {
 steps { 
 git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'
 }
@@ -26,7 +26,7 @@ sudo mv * /var/lib/jenkins/workspace/pipeline2/C_files
 agent {
   label 'practise'
 }
-stage ('clone_Java_file') {
+stage ('clone_Java_files') {
 steps { 
 git branch: 'master', url: 'https://github.com/Manasabhat2222/Java.git'
 }
