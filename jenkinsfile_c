@@ -3,7 +3,7 @@ agent any
 stages {
 stage ('Clone') {
 steps {
-
+git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'
 }
 }
 stage ('Build') {
