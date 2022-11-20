@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    environment {
+  NAME = "MANASA"
+}
+stages {
+    stage('Envi var') {
+        steps {
+            sh '''
+            printenv >> env
+            echo "$NAME"
+            '''
+        }
+    }
+}
+}
