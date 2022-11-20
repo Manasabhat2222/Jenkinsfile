@@ -1,0 +1,50 @@
+pipeline {
+    agent { label 'practise' }
+    tools {
+        maven 'MAVEN_HOME_TRY'
+    }
+    stages {
+        stage('clone') {
+            steps {
+             git branch: 'main', url: 'https://github.com/Manasabhat2222/C-files.git'   
+            }
+        }
+        stage('clone java') {
+            steps {
+                git credentialsId: 'project_java', url: 'https://github.com/Manasabhat2222/Java.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                catchError(buildResult:'FAILURE', stageResult:'FAILURE') {
+                sh '''
+            cd /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1
+            make
+            rm -rf *.o
+            mkdir /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/irritated
+            mv /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/ABC.exe /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/irritated
+            mv /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/*.c makefile /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/irritated
+            '''
+                }
+            }
+        }
+        
+        stage('Build maven') {
+            steps {
+                sh '''
+                cd /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1
+                mvn clean install
+                '''
+            }
+        }
+
+        stage('deploy_Java') {
+            steps {
+                sh '''
+                sudo cp /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/target/hello-world-war-1.0.0.war /opt/tomcat/webapps
+                '''
+            }
+        }
+    }
+}
