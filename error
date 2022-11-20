@@ -18,7 +18,7 @@ pipeline {
             cd /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1
             make
             rm -rf *.o
-            mkdir irritated
+            mkdir /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/irritated
             mv /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/ABC.exe /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/irritated
             mv /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/*.c makefile /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1/irritated
             '''
