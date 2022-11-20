@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+    stages{
+        stage('clone') {
+            steps {
+                sh '''
+                echo "this is clone"
+                '''
+            }
+        }
+        stage('parallel') {
+            matrix {
+                stage('build1') {
+                    steps {
+                        sh '''
+                        echo "This is para1"
+                        '''
+                    }
+                }
+                stage('parallel_nested') {
+                    matrix {
+                        stage('build6') {
+                            steps {
+                                sh '''
+                                echo "This is para2"
+                                '''
+                            }
+                        }
+                        stage('build2') {
+                            steps {
+                                sh '''
+                                echo "This is para3"
+                                '''
+                            }
+                        }
+                        stage('build3') {
+                            steps {
+                                sh '''
+                                echo "This is para4"
+                                '''
+                            }
+                        }
+                    }
+                }
+                stage('build4') {
+                    steps {
+                        sh '''
+                        echo "This is para5"
+                        '''
+                    }
+                }
+                stage('build5') {
+                    steps {
+                        sh '''
+                        echo "This is para6"
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
