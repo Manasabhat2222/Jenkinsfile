@@ -17,7 +17,7 @@ pipeline {
         
         stage('Build') {
             steps {
-                catchError(buildResult:'SUCCESS', stageResult:'FAILURE') {
+                catchError(buildResult: 'SUCCESS', message: 'Build stage failed.Check for errors', stageResult: 'FAILURE') {
                 sh '''
             cd /home/jenkins/jenkins-workspace/workspace/workspace/frustrated_pipe1
             make
