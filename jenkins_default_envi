@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+    environment {
+  NAME = "MANASA"
+}
+stages {
+    stage('Envi var') {
+        steps {
+            sh '''
+            echo "$BUILD_NUMBER"
+            echo "$JENKINS_URL"
+            echo "$NAME"
+            '''
+        }
+    }
+}
+}
