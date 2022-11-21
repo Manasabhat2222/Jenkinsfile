@@ -1,0 +1,21 @@
+def manasa="bhat"
+pipeline {
+    agent any
+    stages {
+        stage('Test1') {
+            steps {
+                script {
+                    echo manasa
+                    manasa="vailaya" ;
+                }
+            }
+        }
+        stage('Test2') {
+            steps {
+                script {
+                    echo manasa
+                }
+            }
+        }
+    }
+}
