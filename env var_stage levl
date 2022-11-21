@@ -1,0 +1,37 @@
+pipeline {
+    agent any 
+    options {
+  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '15', numToKeepStr: '3')
+}
+environment {
+NAME = "MANASA"
+}
+    stages {
+        stage('Build') {
+            steps {
+              sh ' echo "This is build1" '  
+              sh 'echo $NAME'
+              sh 'printenv | sort > env '
+            }
+        }
+        stage('Deploy') {
+            environment {
+                BRANCH="civil"
+            }
+            steps {
+                sh '''
+                echo "$BRANCH"
+                '''
+            }
+        }
+        stage('Test'){
+            steps {
+                sh '''
+                echo "This envi variable defined below will not work"
+                echo " as BRANCH was defined in stage level and not pipeline level"
+                echo "$BRANCH"
+                '''
+            }
+        }
+    }
+}
