@@ -1,0 +1,16 @@
+pipeline {
+    agent any 
+    options {
+  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '15', numToKeepStr: '3')
+}
+  triggers {
+  upstream 'upstream, upstream2, '
+}
+    stages {
+        stage('Build') {
+            steps {
+              sh ' echo "This is build3" '  
+            }
+        }
+    }
+}
