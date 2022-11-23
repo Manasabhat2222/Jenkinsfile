@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    parameters {
+  booleanParam description: 'To check if true or false', name: 'Stage1'
+string defaultValue: 'frustrated_pipe8', description: 'Enter the job name', name: 'JOB_NAME', trim: true
+    }
+    stages {
+        stage('Stage1') {
+            steps {
+                echo "${params.Stage1}"
+            }
+        }
+        stage('Stage2') {
+            steps {
+                echo "${params.JOB_NAME}"
+            }
+        }
+        stage('Stage3') {
+            agent { label 'practise' }
+            steps {
+                sh 'df -h .' 
+            }
+        }
+        stage('Stage4') {
+            steps {
+            sh 'ps -ef'
+        }
+    }
+    }
+}
