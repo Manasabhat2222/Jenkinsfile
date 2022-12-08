@@ -1,0 +1,30 @@
+pipeline {
+    agent {label 'C-project'}
+    parameters {
+    string description: 'Enter the Tomcat version link to be downloaded', name: 'TomcatLink', trim: true
+    string description: 'Enter the version to untar', name: 'version'
+    }
+    environment {
+      link = "$TomcatLink"
+      version = "$version"
+    }
+
+    stages {
+        stage ('Install Java') {
+            steps {
+                sh '''
+                cd /opt
+                wget "${link}"
+                sudo tar -xvzf "${version}".tar.gz
+                sudo chmod 777 "${version}"
+                cd "${version}"
+                sudo chown -R jenkins:jenkins bin
+                sudo chmod -R 777 bin
+                cd bin
+                sudo sh startup.sh
+                '''
+                }
+            }
+        
+        }
+    }
