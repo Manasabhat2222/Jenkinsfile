@@ -1,0 +1,39 @@
+pipeline {
+    agent none
+    stages {
+        
+        stage ('parallel') {
+            parallel {
+            stage('Test1') {
+                agent { label 'master' }
+                steps {
+                    sh 'sleep 2 '
+                }
+            }        
+            stage ('Test2') {
+                agent { label 'master' }
+                steps {
+                    sh 'sleep 2'
+                }
+            }
+            }
+        }
+        
+            stage ('parallel123') {
+                parallel {
+                stage('Test3') {
+                    agent { label 'practise' }
+                    steps {
+                     sh 'sleep 5 '
+                    }
+                }
+                stage ('Test4') {
+                    agent { label 'practise' }
+                    steps {
+                        sh 'sleep 5'
+                    }
+                }
+            }
+        }
+    }
+}
