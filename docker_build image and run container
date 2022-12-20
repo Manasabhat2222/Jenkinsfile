@@ -1,0 +1,22 @@
+pipeline {
+    agent { label 'cproj' }
+    stages {
+        stage('Build') {
+            steps {
+                sh '''
+                cd /home/ubuntu
+                docker build -t nginx .
+                '''
+            }
+        }
+        stage ('Run') {
+            steps {
+                sh '''
+                cd /home/ubuntu
+                docker run -it -d --name nginx nginx:latest
+                '''
+            }
+        }
+    }
+    
+}
