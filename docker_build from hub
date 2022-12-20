@@ -1,0 +1,13 @@
+pipeline {
+    agent { label 'cproj' }
+    stages {
+        stage ('Run') {
+            steps {
+                sh '''
+                cd /home/ubuntu
+                docker run -it -d --name alpine alpine:3
+                '''
+            }
+        }
+    }
+}
