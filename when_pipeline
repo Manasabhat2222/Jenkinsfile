@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    stages {
+        stage('Example Build') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Example Deploy') {
+            when {
+                expression {env.GIT_BRANCH == 'origin/main'}
+            }
+            steps {
+                timeout(time: 10, unit: 'SECONDS') {
+                sh '''
+                echo 'Deploying'
+                sleep 15
+                '''
+                }
+            }
+        }
+    }
+}
