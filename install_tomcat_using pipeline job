@@ -16,11 +16,9 @@ pipeline {
                 cd /opt
                 wget "${link}"
                 sudo tar -xvzf "${version}".tar.gz
-                sudo chmod 777 "${version}"
-                cd "${version}"
+                sudo chmod -R 777 "${version}"
                 sudo chown -R jenkins:jenkins bin
-                sudo chmod -R 777 bin
-                cd bin
+                cd "${version}"/bin
                 sudo sh startup.sh
                 '''
                 }
