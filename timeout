@@ -1,0 +1,13 @@
+# build will fail incase it doesnt execute within specified time
+pipeline {
+   agent any
+   stages {
+      stage('Build') {
+         steps {
+            timeout(time: 1, unit: 'HOURS') {
+               // build steps go here
+            }
+         }
+      }
+   }
+}
