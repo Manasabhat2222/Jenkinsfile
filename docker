@@ -1,0 +1,36 @@
+Here u are asking to build the jenkinsfile from dockerfile. Note that the dockerfile should be kept on same folder as the jenkinsfile.
+Step1 : docker inspect -f <image_name>  --> it will inspect it image is already present in local
+Step 2 : docker pull <image_name>  --> will pull image from docker hub
+Step 3 : run the instructions in docker file
+Step 4 : will stop the container
+Step 5 : Delete the container using rm -rf containerID
+
+pipeline {
+  agent { dockerfile true }
+  stages {
+    stage('Test') {
+      steps {
+        sh '''
+          node --version
+          git --version
+          curl --version
+        '''
+      }
+    }
+  }
+}
+
+-------------------------------------------
+Just pulling image and creating container using docker agent.
+pipeline {
+  agent {
+    docker { image 'node:16-alpine' }
+  }
+  stages {
+    stage('Test') {
+      steps {
+        sh 'node --version'
+      }
+    }
+  }
+}
