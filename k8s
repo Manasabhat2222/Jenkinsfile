@@ -1,0 +1,74 @@
+kubectl create namespace jenkins
+kubectl create serviceaccount jenkins --namespace=jenkins
+kubectl describe secret $(kubectl describe serviceaccount jenkins --namespace=jenkins | grep Token | awk '{print $2}') --namespace=jenkins
+kubectl create rolebinding jenkins-admin-binding --clusterrole=admin --serviceaccount=jenkins:jenkins --namespace=jenkins
+
+
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: maven
+            image: maven:alpine    # will pull image from docker hub.
+            command:
+            - cat
+            tty: true
+        '''
+    }
+  }
+  stages {
+    stage('Run maven') {
+      steps {
+        container('maven') {               # container maven from above is called here
+          sh 'mvn -version' 
+        }
+      }
+    }
+  }
+}
+
+--------------------------------------------------------------------------------------------
+Here we are creating two containers in one pod. Note that containers in one pod share the same workspace, hence it is easy to pass on
+the file from one container to another.
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: maven
+            image: maven:alpine    # container 1 (if u have already run above pipeline, then it wont pull from docker hub again)
+            command:
+            - cat
+            tty: true
+          - name: node
+            image: node:16-alpine3.12  # container 2 
+            command:
+            - cat
+            tty: true
+        '''
+    }
+  }
+  stages {
+    stage('Run maven') {
+      steps {
+        container('maven') {
+          sh 'mvn -version'
+          sh ' echo Hello World > hello.txt'    # creating file inside container 1 
+          sh 'ls -last'
+        }
+        container('node') {
+          sh 'npm version'
+          sh 'cat hello.txt'   # as both container share same workspace, u can cat the file created in container 1.
+          sh 'ls -last'
+        }
+      }
+    }
+  }
+}
